@@ -98,3 +98,12 @@ jobs:
       - name: Run UpgradeToAngular21 recipe
         shell: bash
         run: mod-run . --recipe=org.openrewrite.angular.UpgradeToAngular21
+
+      - name: Print SourcesFileErrors for UpgradeToAngular21
+        if: always()
+        shell: bash
+        run: |
+          if grep -q "SourcesFileErrors" output_rendered.log 2>/dev/null; then
+            mod study . --last-recipe-run --data-table SourcesFileErrors 2>&1 || true
+            cat .moderne/run/*/datatables/org.openrewrite.table.SourcesFileErrors.csv 2>/dev/null || true
+          fi
