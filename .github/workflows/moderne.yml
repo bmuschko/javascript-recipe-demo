@@ -18,13 +18,13 @@ jobs:
             cli-version: "3.57.16"
             java-version: "17"
           - os: ubuntu-latest
-            cli-version: "4.1.1"
+            cli-version: "4.1.2"
             java-version: "25"
           - os: windows-latest
             cli-version: "3.57.16"
             java-version: "17"
           - os: windows-latest
-            cli-version: "4.1.1"
+            cli-version: "4.1.2"
             java-version: "25"
     runs-on: ${{ matrix.os }}
 
