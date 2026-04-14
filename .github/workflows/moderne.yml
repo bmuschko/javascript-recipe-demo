@@ -108,3 +108,11 @@ jobs:
       - name: Run UpgradeToAngular21 recipe
         shell: bash
         run: mod-run . --recipe=org.openrewrite.angular.UpgradeToAngular21
+
+      - name: Upload Moderne logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: moderne-logs-${{ matrix.os }}-cli-${{ matrix.cli-version }}
+          path: .moderne/
+          if-no-files-found: ignore
