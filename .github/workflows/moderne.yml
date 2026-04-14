@@ -116,3 +116,4 @@ jobs:
           name: moderne-logs-${{ matrix.os }}-cli-${{ matrix.cli-version }}
           path: .moderne/
           if-no-files-found: ignore
+          include-hidden-files: true
