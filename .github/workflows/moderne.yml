@@ -70,6 +70,11 @@ jobs:
           " "$csv"
             done
           fi
+          run_log=$(grep -oP 'See run log at \K\S+' output_rendered.log || true)
+          if [ -n "$run_log" ] && [ -f "$run_log" ]; then
+            echo "--- Run Log ($run_log) ---"
+            cat "$run_log"
+          fi
           if grep -q "Unable to find recipe" output_rendered.log; then
             echo "Recipe not found"
             exit 1
