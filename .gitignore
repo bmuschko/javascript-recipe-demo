@@ -38,6 +38,10 @@ testem.log
 /typings
 __screenshots__/
 
+# CI artifacts
+output.log
+output_rendered.log
+
 # System files
 .DS_Store
 Thumbs.db
