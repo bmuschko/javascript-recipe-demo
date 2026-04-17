@@ -42,12 +42,14 @@ jobs:
           MODERNE_CLI_VERSION: ${{ matrix.cli-version }}
         shell: bash
         run: |
-          curl -sSL -o mod.jar https://repo1.maven.org/maven2/io/moderne/moderne-cli/${{ env.MODERNE_CLI_VERSION }}/moderne-cli-${{ env.MODERNE_CLI_VERSION }}.jar
-          echo '#!/bin/bash' > mod
-          echo 'java -jar "'"$GITHUB_WORKSPACE"'/mod.jar" "$@"' >> mod
-          chmod +x mod
+          BIN_DIR="$RUNNER_TEMP/moderne-bin"
+          mkdir -p "$BIN_DIR"
+          curl -sSL -o "$BIN_DIR/mod.jar" https://repo1.maven.org/maven2/io/moderne/moderne-cli/${{ env.MODERNE_CLI_VERSION }}/moderne-cli-${{ env.MODERNE_CLI_VERSION }}.jar
+          echo '#!/bin/bash' > "$BIN_DIR/mod"
+          echo 'java -jar "'"$BIN_DIR"'/mod.jar" "$@"' >> "$BIN_DIR/mod"
+          chmod +x "$BIN_DIR/mod"
 
-          cat > mod-run <<'EOF'
+          cat > "$BIN_DIR/mod-run" <<'EOF'
           #!/bin/bash
           set -o pipefail
           mod run "$@" 2>&1 | tee output.log
@@ -80,9 +82,9 @@ jobs:
             exit 1
           fi
           EOF
-          chmod +x mod-run
+          chmod +x "$BIN_DIR/mod-run"
 
-          echo "$GITHUB_WORKSPACE" >> $GITHUB_PATH
+          echo "$BIN_DIR" >> $GITHUB_PATH
 
       - name: Install recipe JAR for codemods
         env:
