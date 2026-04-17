@@ -15,10 +15,10 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            cli-version: "4.1.4"
+            cli-version: "4.1.5"
             java-version: "25"
           - os: windows-latest
-            cli-version: "4.1.4"
+            cli-version: "4.1.5"
             java-version: "25"
     runs-on: ${{ matrix.os }}
 
